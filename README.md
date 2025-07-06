@@ -12,7 +12,7 @@ Proyek ini adalah **automation testing** untuk [DummyJSON Auth API](https://dumm
 
 ## 🗂️ Struktur Folder
 
-\`\`\`
+```
 karate-dummyjson/
 ├── pom.xml
 └── src
@@ -23,7 +23,7 @@ karate-dummyjson/
         └── resources
             └── dummyjson
                 └── Auth.feature          # Feature file BDD untuk Auth API
-\`\`\`
+```
 
 ---
 
@@ -31,41 +31,42 @@ karate-dummyjson/
 
 ### 1. **Clone repositori**
 
-\`\`\`bash
+```bash
 git clone https://github.com/username/karate-dummyjson.git
 cd karate-dummyjson
-\`\`\`
+```
 
 ### 2. **Install Dependency (Maven)**
 
 Pastikan sudah install **Java 17+** dan **Maven**.
 
-\`\`\`bash
+```bash
 # Cek versi Java (disarankan 17)
 java -version
 
 # Cek versi Maven
 mvn -v
-\`\`\`
+```
 
 ### 3. **Jalankan Semua Test**
 
-\`\`\`bash
+```bash
 mvn test
-\`\`\`
+```
 
 ### 4. **Jalankan Satu Runner Saja**
 
-\`\`\`bash
+```bash
 mvn test -Dtest=dummyjson.AuthRunner
-\`\`\`
+```
 
 ### 5. **Lihat Report HTML**
 
 Setelah selesai, buka report hasil test di:
-\`\`\`
+
+```
 target/karate-reports/karate-summary.html
-\`\`\`
+```
 
 ---
 
@@ -73,33 +74,36 @@ target/karate-reports/karate-summary.html
 
 ### 1. **Login dan Ambil Token**
 
-- Kirim request login ke endpoint \`/auth/login\` dengan username & password.
-- Pastikan response mengandung **accessToken** & **refreshToken**.
+* Kirim request login ke endpoint `/auth/login` dengan username & password.
+* Pastikan response mengandung **accessToken** & **refreshToken**.
 
 ### 2. **Get Auth User Info (dengan Bearer token)**
 
-- Kirim request ke \`/auth/me\` menggunakan accessToken dari hasil login.
-- Pastikan response mengandung username sesuai login.
+* Kirim request ke `/auth/me` menggunakan accessToken dari hasil login.
+* Pastikan response mengandung username sesuai login.
 
 ### 3. **Refresh Token**
 
-- Kirim request ke \`/auth/refresh\` dengan refreshToken yang valid.
-- Pastikan mendapat accessToken & refreshToken baru.
+* Kirim request ke `/auth/refresh` dengan refreshToken yang valid.
+* Pastikan mendapat accessToken & refreshToken baru.
 
 ### 4. **Only Login (@loginOnly)**
 
-- Step login yang reusable untuk scenario lain (dengan tag \`@loginOnly\`).
+* Step login yang reusable untuk scenario lain (dengan tag `@loginOnly`).
 
 ---
 
 ## 📝 Contoh Menjalankan dan Melihat Response
 
 **Agar response terlihat rapih di terminal, sudah otomatis di-print di setiap scenario dengan:**
-\`\`\`gherkin
+
+```gherkin
 * print response
-\`\`\`
+```
+
 Contoh output di terminal:
-\`\`\`json
+
+```json
 15:22:34.370 [print] {
   "accessToken": "...",
   "refreshToken": "...",
@@ -107,20 +111,21 @@ Contoh output di terminal:
   "username": "emilys",
   ...
 }
-\`\`\`
+```
 
 **Menjalankan dari terminal:**
-\`\`\`bash
+
+```bash
 mvn test -Dtest=dummyjson.AuthRunner
-\`\`\`
+```
 
 ---
 
 ## 📦 Requirements
 
-* Java 17 (\`brew install openjdk@17\` di Mac)
-* Maven (\`brew install maven\` atau install manual)
-* Koneksi internet (akses ke https://dummyjson.com)
+* Java 17 (`brew install openjdk@17` di Mac)
+* Maven (`brew install maven` atau install manual)
+* Koneksi internet (akses ke [https://dummyjson.com](https://dummyjson.com))
 
 ---
 
@@ -130,5 +135,17 @@ mvn test -Dtest=dummyjson.AuthRunner
 * **JUnit5** – Runner untuk Karate di Maven
 * **Maven** – Build & dependency management
 
+---
 
+## 📝 Contoh Isi `Auth.feature`
 
+```gherkin
+Scenario: Login and get tokens
+  Given path 'auth/login'
+  And request { username: 'emilys', password: 'emilyspass' }
+  When method post
+  Then status 200
+  And match response.accessToken != null
+  And match response.refreshToken != null
+  * print response
+```
