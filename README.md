@@ -137,15 +137,4 @@ mvn test -Dtest=dummyjson.AuthRunner
 
 ---
 
-## 📝 Contoh Isi `Auth.feature`
 
-```gherkin
-Scenario: Login and get tokens
-  Given path 'auth/login'
-  And request { username: 'emilys', password: 'emilyspass' }
-  When method post
-  Then status 200
-  And match response.accessToken != null
-  And match response.refreshToken != null
-  * print response
-```
