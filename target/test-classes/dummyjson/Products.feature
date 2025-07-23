@@ -90,10 +90,10 @@ Scenario: Add New Product
 
 Scenario: Update Product Title
   Given path 'products', 1
-  And request { title: 'iPhone Galaxy +1' }
+  And request { title: 'iPhone Galaxy mantap' }
   When method put
   Then status 200
-  And match response.title == 'iPhone Galaxy +1'
+  And match response.title == 'iPhone Galaxy mantap'
   * print response
 
 Scenario: Delete Product by ID
