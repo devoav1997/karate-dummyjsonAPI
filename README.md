@@ -1,9 +1,8 @@
-
 # 🧪 DummyJSON API Karate BDD Test
 
 ## 🚀 Karate (BDD) API Automation for DummyJSON
 
-Proyek ini adalah **automation testing** untuk [DummyJSON Auth API](https://dummyjson.com/docs/auth) **dan [Products API](https://dummyjson.com/docs/products)** menggunakan:
+Proyek ini adalah **automation testing** untuk [DummyJSON Auth API](https://dummyjson.com/docs/auth), [Products API](https://dummyjson.com/docs/products), **dan [Carts API](https://dummyjson.com/docs/carts)** menggunakan:
 
 * **Karate** (Gherkin/BDD)
 * **Maven** untuk build dan menjalankan automation
@@ -21,11 +20,13 @@ karate-dummyjson/
         ├── java
         │   └── dummyjson
         │       ├── AuthRunner.java        # Karate Runner untuk Auth.feature
-        │       └── ProductsRunner.java    # Karate Runner untuk Products.feature
+        │       ├── ProductsRunner.java    # Karate Runner untuk Products.feature
+        │       └── CartsRunner.java       # Karate Runner untuk Carts.feature
         └── resources
             └── dummyjson
                 ├── Auth.feature           # Feature file BDD untuk Auth API
-                └── Products.feature       # Feature file BDD untuk Products API
+                ├── Products.feature       # Feature file BDD untuk Products API
+                └── Carts.feature          # Feature file BDD untuk Carts API
 ```
 
 ---
@@ -65,6 +66,9 @@ mvn test -Dtest=dummyjson.AuthRunner
 
 # Jalankan Products API tests
 mvn test -Dtest=dummyjson.ProductsRunner
+
+# Jalankan Carts API tests
+mvn test -Dtest=dummyjson.CartsRunner
 ```
 
 ### 5. **Lihat Report HTML**
@@ -161,6 +165,40 @@ target/karate-reports/karate-summary.html
 
 ---
 
+### 3. **Carts API**
+
+* **Get All Carts**
+
+  * Kirim request ke `/carts`.
+  * Pastikan response list carts tidak kosong.
+
+* **Get Single Cart by ID**
+
+  * Kirim request ke `/carts/{id}`.
+  * Pastikan response sesuai dengan ID cart.
+
+* **Get Carts by User ID**
+
+  * Kirim request ke `/carts/user/{userId}`.
+  * Pastikan response hanya berisi cart milik userId tersebut.
+
+* **Add New Cart**
+
+  * Kirim request ke `/carts/add` (POST) dengan userId dan daftar produk.
+  * Cek response berisi cart baru beserta produk yang ditambahkan.
+
+* **Update Cart (add product)**
+
+  * Kirim request ke `/carts/{id}` (PUT) dengan produk baru.
+  * Cek cart sudah ter-update sesuai.
+
+* **Delete Cart**
+
+  * Kirim request ke `/carts/{id}` (DELETE).
+  * Cek response `isDeleted` = true.
+
+---
+
 ## 📝 Contoh Menjalankan dan Melihat Response
 
 **Agar response terlihat rapih di terminal, sudah otomatis di-print di setiap scenario dengan:**
@@ -194,11 +232,28 @@ Contoh output di terminal (Products):
 }
 ```
 
+Contoh output di terminal (Carts):
+
+```json
+15:25:22.101 [print] {
+  "id": 51,
+  "products": [
+    { "id": 98, "title": "Rolex Submariner Watch", ... },
+    { "id": 144, "title": "Cricket Helmet", ... }
+  ],
+  "userId": 1,
+  ...
+}
+```
+
+---
+
 **Menjalankan dari terminal:**
 
 ```bash
 mvn test -Dtest=dummyjson.AuthRunner
 mvn test -Dtest=dummyjson.ProductsRunner
+mvn test -Dtest=dummyjson.CartsRunner
 ```
 
 ---
@@ -216,4 +271,18 @@ mvn test -Dtest=dummyjson.ProductsRunner
 * **Karate** – Framework BDD API Testing (Given-When-Then, Gherkin syntax)
 * **JUnit5** – Runner untuk Karate di Maven
 * **Maven** – Build & dependency management
+
+---
+
+<details>
+<summary>🔗 Referensi API DummyJSON</summary>
+
+* [Auth API Docs](https://dummyjson.com/docs/auth)
+* [Products API Docs](https://dummyjson.com/docs/products)
+* [Carts API Docs](https://dummyjson.com/docs/carts)
+
+</details>
+
+---
+
 
