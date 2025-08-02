@@ -2,7 +2,7 @@
 
 ## 🚀 Karate (BDD) API Automation for DummyJSON
 
-Proyek ini adalah **automation testing** untuk [DummyJSON Auth API](https://dummyjson.com/docs/auth), [Products API](https://dummyjson.com/docs/products), **dan [Carts API](https://dummyjson.com/docs/carts)** menggunakan:
+Proyek ini adalah **automation testing** untuk [DummyJSON Auth API](https://dummyjson.com/docs/auth), [Products API](https://dummyjson.com/docs/products), [Carts API](https://dummyjson.com/docs/carts), **dan [Recipes API](https://dummyjson.com/docs/recipes)** menggunakan:
 
 * **Karate** (Gherkin/BDD)
 * **Maven** untuk build dan menjalankan automation
@@ -21,12 +21,14 @@ karate-dummyjson/
         │   └── dummyjson
         │       ├── AuthRunner.java        # Karate Runner untuk Auth.feature
         │       ├── ProductsRunner.java    # Karate Runner untuk Products.feature
-        │       └── CartsRunner.java       # Karate Runner untuk Carts.feature
+        │       ├── CartsRunner.java       # Karate Runner untuk Carts.feature
+        │       └── RecipesRunner.java     # Karate Runner untuk Recipes.feature
         └── resources
             └── dummyjson
                 ├── Auth.feature           # Feature file BDD untuk Auth API
                 ├── Products.feature       # Feature file BDD untuk Products API
-                └── Carts.feature          # Feature file BDD untuk Carts API
+                ├── Carts.feature          # Feature file BDD untuk Carts API
+                └── Recipes.feature        # Feature file BDD untuk Recipes API
 ```
 
 ---
@@ -69,6 +71,9 @@ mvn test -Dtest=dummyjson.ProductsRunner
 
 # Jalankan Carts API tests
 mvn test -Dtest=dummyjson.CartsRunner
+
+# Jalankan Recipes API tests
+mvn test -Dtest=dummyjson.RecipesRunner
 ```
 
 ### 5. **Lihat Report HTML**
@@ -85,117 +90,53 @@ target/karate-reports/karate-summary.html
 
 ### 1. **Auth API**
 
-* **Login dan Ambil Token**
-
-  * Kirim request login ke endpoint `/auth/login` dengan username & password.
-  * Pastikan response mengandung **accessToken** & **refreshToken**.
-
-* **Get Auth User Info (dengan Bearer token)**
-
-  * Kirim request ke `/auth/me` menggunakan accessToken dari hasil login.
-  * Pastikan response mengandung username sesuai login.
-
-* **Refresh Token**
-
-  * Kirim request ke `/auth/refresh` dengan refreshToken yang valid.
-  * Pastikan mendapat accessToken & refreshToken baru.
-
-* **Only Login (@loginOnly)**
-
-  * Step login yang reusable untuk scenario lain (dengan tag `@loginOnly`).
+* Login dan Ambil Token
+* Get Auth User Info (dengan Bearer token)
+* Refresh Token
+* Only Login (@loginOnly)
 
 ---
 
 ### 2. **Products API**
 
-* **Get All Products**
-
-  * Kirim request ke `/products`.
-  * Pastikan response list produk tidak kosong & ada field kunci.
-
-* **Get Single Product by ID**
-
-  * Kirim request ke `/products/{id}`.
-  * Pastikan response sesuai dengan ID produk.
-
-* **Search Products by Query**
-
-  * Kirim request ke `/products/search?q=...` untuk pencarian produk.
-  * Pastikan response produk relevan & tidak kosong.
-
-* **Get Products with Limit and Skip**
-
-  * Kirim request ke `/products?limit=10&skip=10`.
-  * Cek field `limit` & `skip` pada response.
-
-* **Get Products with Selected Fields**
-
-  * Kirim request ke `/products?limit=5&select=title,price`.
-  * Cek hanya field `title` dan `price` yang muncul.
-
-* **Get Products Sorted by Title ASC**
-
-  * Kirim request ke `/products?sortBy=title&order=asc`.
-  * Cek sorting produk berdasarkan title.
-
-* **Get All Product Categories**
-
-  * Kirim request ke `/products/categories`.
-  * Pastikan response array berisi kategori valid.
-
-* **Get Products by Category**
-
-  * Kirim request ke `/products/category/{nama_kategori}`.
-  * Pastikan produk termasuk dalam kategori sesuai.
-
-* **Add New Product**
-
-  * Kirim request ke `/products/add` (POST) dengan payload produk baru.
-  * Cek response berisi data produk baru.
-
-* **Update Product Title**
-
-  * Kirim request ke `/products/{id}` (PUT) untuk update data produk.
-  * Cek response field title sudah berubah.
-
-* **Delete Product by ID**
-
-  * Kirim request ke `/products/{id}` (DELETE).
-  * Cek response `isDeleted` = true.
+* Get All Products
+* Get Single Product by ID
+* Search Products by Query
+* Get Products with Limit and Skip
+* Get Products with Selected Fields
+* Get Products Sorted by Title ASC
+* Get All Product Categories
+* Get Products by Category
+* Add New Product
+* Update Product Title
+* Delete Product by ID
 
 ---
 
 ### 3. **Carts API**
 
-* **Get All Carts**
+* Get All Carts
+* Get Single Cart by ID
+* Get Carts by User ID
+* Add New Cart
+* Update Cart (add product)
+* Delete Cart
 
-  * Kirim request ke `/carts`.
-  * Pastikan response list carts tidak kosong.
+---
 
-* **Get Single Cart by ID**
+### 4. **Recipes API**
 
-  * Kirim request ke `/carts/{id}`.
-  * Pastikan response sesuai dengan ID cart.
-
-* **Get Carts by User ID**
-
-  * Kirim request ke `/carts/user/{userId}`.
-  * Pastikan response hanya berisi cart milik userId tersebut.
-
-* **Add New Cart**
-
-  * Kirim request ke `/carts/add` (POST) dengan userId dan daftar produk.
-  * Cek response berisi cart baru beserta produk yang ditambahkan.
-
-* **Update Cart (add product)**
-
-  * Kirim request ke `/carts/{id}` (PUT) dengan produk baru.
-  * Cek cart sudah ter-update sesuai.
-
-* **Delete Cart**
-
-  * Kirim request ke `/carts/{id}` (DELETE).
-  * Cek response `isDeleted` = true.
+* Get All Recipes
+* Get Single Recipe by ID
+* Search Recipes by Query
+* Get Recipes with Limit, Skip & Selected Fields
+* Get Recipes Sorted by Name ASC
+* Get All Recipes Tags
+* Get Recipes by Tag
+* Get Recipes by Meal Type
+* Add New Recipe
+* Update Recipe
+* Delete Recipe
 
 ---
 
@@ -205,18 +146,6 @@ target/karate-reports/karate-summary.html
 
 ```gherkin
 * print response
-```
-
-Contoh output di terminal (Auth):
-
-```json
-15:22:34.370 [print] {
-  "accessToken": "...",
-  "refreshToken": "...",
-  "id": 1,
-  "username": "emilys",
-  ...
-}
 ```
 
 Contoh output di terminal (Products):
@@ -232,16 +161,14 @@ Contoh output di terminal (Products):
 }
 ```
 
-Contoh output di terminal (Carts):
+Contoh output di terminal (Recipes):
 
 ```json
-15:25:22.101 [print] {
-  "id": 51,
-  "products": [
-    { "id": 98, "title": "Rolex Submariner Watch", ... },
-    { "id": 144, "title": "Cricket Helmet", ... }
+16:01:17.202 [print] {
+  "recipes": [
+    { "id": 1, "name": "Classic Margherita Pizza", ... }
   ],
-  "userId": 1,
+  "total": 100,
   ...
 }
 ```
@@ -254,6 +181,7 @@ Contoh output di terminal (Carts):
 mvn test -Dtest=dummyjson.AuthRunner
 mvn test -Dtest=dummyjson.ProductsRunner
 mvn test -Dtest=dummyjson.CartsRunner
+mvn test -Dtest=dummyjson.RecipesRunner
 ```
 
 ---
@@ -280,9 +208,9 @@ mvn test -Dtest=dummyjson.CartsRunner
 * [Auth API Docs](https://dummyjson.com/docs/auth)
 * [Products API Docs](https://dummyjson.com/docs/products)
 * [Carts API Docs](https://dummyjson.com/docs/carts)
+* [Recipes API Docs](https://dummyjson.com/docs/recipes)
 
 </details>
 
----
 
 
