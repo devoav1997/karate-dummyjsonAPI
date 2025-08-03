@@ -2,34 +2,38 @@
 
 ## 🚀 Karate (BDD) API Automation for DummyJSON
 
-Proyek ini adalah **automation testing** untuk [DummyJSON Auth API](https://dummyjson.com/docs/auth), [Products API](https://dummyjson.com/docs/products), [Carts API](https://dummyjson.com/docs/carts), **dan [Recipes API](https://dummyjson.com/docs/recipes)** menggunakan:
+Proyek ini adalah **automation testing** untuk [DummyJSON Auth API](https://dummyjson.com/docs/auth), [Users API](https://dummyjson.com/docs/users), [Products API](https://dummyjson.com/docs/products), [Carts API](https://dummyjson.com/docs/carts), **dan [Recipes API](https://dummyjson.com/docs/recipes)** menggunakan:
 
-* **Karate** (Gherkin/BDD)
-* **Maven** untuk build dan menjalankan automation
-* **Karate JUnit5** untuk runner test
+- **Karate** (Gherkin/BDD)
+- **Maven** untuk build & running automation
+- **Karate JUnit5** sebagai test runner
 
 ---
 
 ## 🗂️ Struktur Folder
 
 ```
+
 karate-dummyjson/
 ├── pom.xml
 └── src
-    └── test
-        ├── java
-        │   └── dummyjson
-        │       ├── AuthRunner.java        # Karate Runner untuk Auth.feature
-        │       ├── ProductsRunner.java    # Karate Runner untuk Products.feature
-        │       ├── CartsRunner.java       # Karate Runner untuk Carts.feature
-        │       └── RecipesRunner.java     # Karate Runner untuk Recipes.feature
-        └── resources
-            └── dummyjson
-                ├── Auth.feature           # Feature file BDD untuk Auth API
-                ├── Products.feature       # Feature file BDD untuk Products API
-                ├── Carts.feature          # Feature file BDD untuk Carts API
-                └── Recipes.feature        # Feature file BDD untuk Recipes API
-```
+└── test
+├── java
+│   └── dummyjson
+│       ├── AuthRunner.java        # Karate Runner untuk Auth.feature
+│       ├── UsersRunner.java       # Karate Runner untuk Users.feature
+│       ├── ProductsRunner.java    # Karate Runner untuk Products.feature
+│       ├── CartsRunner.java       # Karate Runner untuk Carts.feature
+│       └── RecipesRunner.java     # Karate Runner untuk Recipes.feature
+└── resources
+└── dummyjson
+├── Auth.feature           # Feature file BDD untuk Auth API
+├── Users.feature          # Feature file BDD untuk Users API
+├── Products.feature       # Feature file BDD untuk Products API
+├── Carts.feature          # Feature file BDD untuk Carts API
+└── Recipes.feature        # Feature file BDD untuk Recipes API
+
+````
 
 ---
 
@@ -40,14 +44,14 @@ karate-dummyjson/
 ```bash
 git clone https://github.com/devoav1997/karate-dummyjsonAPI.git
 cd karate-dummyjson
-```
+````
 
 ### 2. **Install Dependency (Maven)**
 
 Pastikan sudah install **Java 17+** dan **Maven**.
 
 ```bash
-# Cek versi Java (disarankan 17)
+# Cek versi Java (direkomendasikan 17 ke atas)
 java -version
 
 # Cek versi Maven
@@ -66,6 +70,9 @@ mvn test
 # Jalankan Auth API tests
 mvn test -Dtest=dummyjson.AuthRunner
 
+# Jalankan Users API tests
+mvn test -Dtest=dummyjson.UsersRunner
+
 # Jalankan Products API tests
 mvn test -Dtest=dummyjson.ProductsRunner
 
@@ -78,7 +85,7 @@ mvn test -Dtest=dummyjson.RecipesRunner
 
 ### 5. **Lihat Report HTML**
 
-Setelah selesai, buka report hasil test di:
+Setelah selesai menjalankan test, buka report hasil di:
 
 ```
 target/karate-reports/karate-summary.html
@@ -97,7 +104,24 @@ target/karate-reports/karate-summary.html
 
 ---
 
-### 2. **Products API**
+### 2. **Users API**
+
+* Get All Users
+* Get Single User by ID
+* Login User & Get Token
+* Get Current Authenticated User
+* Search Users by Name
+* Filter Users by Hair Color
+* Get Users with Limit, Skip, Select
+* Get Users Sorted by First Name ASC
+* Get User's Carts/Posts/Todos by User ID
+* Add New User
+* Update User
+* Delete User
+
+---
+
+### 3. **Products API**
 
 * Get All Products
 * Get Single Product by ID
@@ -113,7 +137,7 @@ target/karate-reports/karate-summary.html
 
 ---
 
-### 3. **Carts API**
+### 4. **Carts API**
 
 * Get All Carts
 * Get Single Cart by ID
@@ -124,7 +148,7 @@ target/karate-reports/karate-summary.html
 
 ---
 
-### 4. **Recipes API**
+### 5. **Recipes API**
 
 * Get All Recipes
 * Get Single Recipe by ID
@@ -142,31 +166,19 @@ target/karate-reports/karate-summary.html
 
 ## 📝 Contoh Menjalankan dan Melihat Response
 
-**Agar response terlihat rapih di terminal, sudah otomatis di-print di setiap scenario dengan:**
+Agar response *rapi* di terminal, sudah otomatis di-*print* di setiap scenario dengan:
 
 ```gherkin
 * print response
 ```
 
-Contoh output di terminal (Products):
+**Contoh output di terminal (Users):**
 
 ```json
 15:24:01.581 [print] {
-  "products": [
-    { "id": 1, "title": "iPhone 9", ... },
-    { "id": 2, "title": "Samsung Galaxy", ... }
-  ],
-  "total": 100,
-  ...
-}
-```
-
-Contoh output di terminal (Recipes):
-
-```json
-16:01:17.202 [print] {
-  "recipes": [
-    { "id": 1, "name": "Classic Margherita Pizza", ... }
+  "users": [
+    { "id": 1, "firstName": "Emily", ... },
+    { "id": 2, "firstName": "John", ... }
   ],
   "total": 100,
   ...
@@ -179,6 +191,7 @@ Contoh output di terminal (Recipes):
 
 ```bash
 mvn test -Dtest=dummyjson.AuthRunner
+mvn test -Dtest=dummyjson.UsersRunner
 mvn test -Dtest=dummyjson.ProductsRunner
 mvn test -Dtest=dummyjson.CartsRunner
 mvn test -Dtest=dummyjson.RecipesRunner
@@ -206,11 +219,12 @@ mvn test -Dtest=dummyjson.RecipesRunner
 <summary>🔗 Referensi API DummyJSON</summary>
 
 * [Auth API Docs](https://dummyjson.com/docs/auth)
+* [Users API Docs](https://dummyjson.com/docs/users)
 * [Products API Docs](https://dummyjson.com/docs/products)
 * [Carts API Docs](https://dummyjson.com/docs/carts)
 * [Recipes API Docs](https://dummyjson.com/docs/recipes)
 
 </details>
 
-
+---
 
