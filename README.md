@@ -2,7 +2,7 @@
 
 ## 🚀 Karate (BDD) API Automation for DummyJSON
 
-Proyek ini adalah **automation testing** untuk [DummyJSON Auth API](https://dummyjson.com/docs/auth), [Users API](https://dummyjson.com/docs/users), [Products API](https://dummyjson.com/docs/products), [Carts API](https://dummyjson.com/docs/carts), **dan [Recipes API](https://dummyjson.com/docs/recipes)** menggunakan:
+Proyek ini adalah **automation testing** untuk [DummyJSON Auth API](https://dummyjson.com/docs/auth), [Users API](https://dummyjson.com/docs/users), [Products API](https://dummyjson.com/docs/products), [Carts API](https://dummyjson.com/docs/carts), [Posts API](https://dummyjson.com/docs/posts), **dan [Recipes API](https://dummyjson.com/docs/recipes)** menggunakan:
 
 - **Karate** (Gherkin/BDD)
 - **Maven** untuk build & running automation
@@ -24,6 +24,7 @@ karate-dummyjson/
 │       ├── UsersRunner.java       # Karate Runner untuk Users.feature
 │       ├── ProductsRunner.java    # Karate Runner untuk Products.feature
 │       ├── CartsRunner.java       # Karate Runner untuk Carts.feature
+│       ├── PostsRunner.java       # Karate Runner untuk Posts.feature
 │       └── RecipesRunner.java     # Karate Runner untuk Recipes.feature
 └── resources
 └── dummyjson
@@ -31,6 +32,7 @@ karate-dummyjson/
 ├── Users.feature          # Feature file BDD untuk Users API
 ├── Products.feature       # Feature file BDD untuk Products API
 ├── Carts.feature          # Feature file BDD untuk Carts API
+├── Posts.feature          # Feature file BDD untuk Posts API
 └── Recipes.feature        # Feature file BDD untuk Recipes API
 
 ````
@@ -78,6 +80,9 @@ mvn test -Dtest=dummyjson.ProductsRunner
 
 # Jalankan Carts API tests
 mvn test -Dtest=dummyjson.CartsRunner
+
+# Jalankan Posts API tests
+mvn test -Dtest=dummyjson.PostsRunner
 
 # Jalankan Recipes API tests
 mvn test -Dtest=dummyjson.RecipesRunner
@@ -148,7 +153,25 @@ target/karate-reports/karate-summary.html
 
 ---
 
-### 5. **Recipes API**
+### 5. **Posts API**
+
+* Get All Posts
+* Get Single Post by ID
+* Search Posts by Query
+* Get Posts with Limit, Skip & Selected Fields
+* Get Posts Sorted by Title ASC
+* Get All Posts Tags (objects)
+* Get Posts Tag List (strings)
+* Get Posts by Tag
+* Get All Posts by User ID
+* Get Post’s Comments
+* Add New Post
+* Update Post Title
+* Delete Post
+
+---
+
+### 6. **Recipes API**
 
 * Get All Recipes
 * Get Single Recipe by ID
@@ -194,6 +217,7 @@ mvn test -Dtest=dummyjson.AuthRunner
 mvn test -Dtest=dummyjson.UsersRunner
 mvn test -Dtest=dummyjson.ProductsRunner
 mvn test -Dtest=dummyjson.CartsRunner
+mvn test -Dtest=dummyjson.PostsRunner
 mvn test -Dtest=dummyjson.RecipesRunner
 ```
 
@@ -222,9 +246,9 @@ mvn test -Dtest=dummyjson.RecipesRunner
 * [Users API Docs](https://dummyjson.com/docs/users)
 * [Products API Docs](https://dummyjson.com/docs/products)
 * [Carts API Docs](https://dummyjson.com/docs/carts)
+* [Posts API Docs](https://dummyjson.com/docs/posts)
 * [Recipes API Docs](https://dummyjson.com/docs/recipes)
 
 </details>
 
 ---
-
